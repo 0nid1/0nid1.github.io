@@ -1,6 +1,7 @@
 ---
 title: HackTheBox
-description: Articles liés à la plateforme HackTheBox.
+description: Articles about HackTheBox.
+translationKey: hackthebox
 image:
 
 # Badge style

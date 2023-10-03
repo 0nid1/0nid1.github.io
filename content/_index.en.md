@@ -2,7 +2,7 @@
 translationKey: menu
 menu:
     main:
-        name: Home
+        name: Accueil
         weight: 1
         params:
             icon: home
