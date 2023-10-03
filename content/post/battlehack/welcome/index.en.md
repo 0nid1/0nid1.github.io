@@ -3,7 +3,7 @@ title: "[Easy - Linux] Welcome"
 description: Welcome box solve
 slug: battlehack_welcome
 date: 2023-10-03 00:00:00+0000
-image: images/welcome-cover.jpg
+image: images/welcome_cover.jpg
 translationKey: battlehack_welcome
 categories:
     - BattleH4ck
