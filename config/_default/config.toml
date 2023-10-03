@@ -2,7 +2,7 @@
 baseurl = "https://0nid1.github.io"
 languageCode = "fr-fr"
 paginate = 5
-title = "Onid1's Blog"
+title = "Le blog d'Onid1"
 
 # Theme i18n support
 # Available values: en, fr, id, ja, ko, pt-br, zh-cn, zh-tw, es, de, nl, it, th, el, uk, ar
