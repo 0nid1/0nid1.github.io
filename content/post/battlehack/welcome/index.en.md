@@ -1,5 +1,5 @@
 ---
-title: "BattleH4ck: Easy - Welcome"
+title: "[BattleH4ck] Easy - Welcome"
 description: Welcome box solve
 slug: battlehack_welcome
 date: 2023-10-03 00:00:00+0000
@@ -12,8 +12,6 @@ tags:
     - Pentest
 weight: 1       
 ---
-![image](https://user-images.githubusercontent.com/69204254/216841932-afe72fcb-e88d-4654-93f7-012e89faf17a.png)
-
 ## Given data
 
 By reading the description of the mission, we can see that we need to connect to the machine by knowing that:
@@ -47,7 +45,7 @@ Nmap done: 1 IP address (1 host up) scanned in 3.00 seconds
 ```
 
 We can see that there is one open port which is SSH.
-By remembering the given data, we have: 
+By remembering the given data, we have:
 
 - a username which *should* be **seela**
 - a password which is *used* is **weak**
@@ -81,8 +79,7 @@ By being denied, we can understand that our password is not equal to "weak" but 
 To find the password used by seela, as Google says, we can use an attack called "bruteforce".
 ![image](https://user-images.githubusercontent.com/69204254/216843124-4edabd84-d823-4160-99b9-cc1e70e4f314.png)
 
-In the first link: `https://null-byte.wonderhowto.com/how-to/gain-ssh-access-servers-by-brute-forcing-credentials-0194263/`
-We can find that there is a tool called "Hydra" which can help us in this situation.
+In the first [link](`https://null-byte.wonderhowto.com/how-to/gain-ssh-access-servers-by-brute-forcing-credentials-0194263/), we can find that there is a tool called "Hydra" which can help us in this situation.
 The website tells us that we need a username and a wordlist.
 To know what wordlist we should use, we can try to ask google which one can be good to try.
 ![image](https://user-images.githubusercontent.com/69204254/216844703-e851e499-3d64-436c-aa13-1046feaed78f.png)
