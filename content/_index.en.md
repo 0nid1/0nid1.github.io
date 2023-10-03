@@ -1,8 +1,8 @@
 ---
-translationKey: menu
+translationKey: home
 menu:
     main:
-        name: Accueil
+        name: Main
         weight: 1
         params:
             icon: home
