@@ -1,6 +1,6 @@
 ---
-title: Links
-translationKey: Liens
+title: Liens
+translationKey: links
 links:
   - title: GitHub
     description: GitHub c tro bien
