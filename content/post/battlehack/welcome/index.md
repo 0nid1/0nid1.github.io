@@ -3,7 +3,7 @@ title: "[BattleH4ck] Facile - Welcome"
 description: Résolution de la machine Welcome
 slug: battlehack_welcome
 date: 2023-10-03 00:00:00+0000
-image: images/welcome-cover.jpg
+image: images/welcome-cover.png
 translationKey: battlehack_welcome
 categories:
     - BattleH4ck
@@ -12,8 +12,6 @@ tags:
     - Pentest
 weight: 1       
 ---
-![image](https://user-images.githubusercontent.com/69204254/216841932-afe72fcb-e88d-4654-93f7-012e89faf17a.png)
-
 ## Données
 
 En lisant la description de la mission, nous apprenons que nous pouvons nous connecter à la machine en sachant :
