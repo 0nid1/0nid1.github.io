@@ -2,5 +2,11 @@
 [en]
 languageName = "English"
 languagedirection = "ltr"
-title = "Example Site"
+title = "Onid1's blog"
 weight = 1
+
+[fr]
+languageName = "French"
+languagedirecion = "ltr"
+title = "Le blog d'Onid1"
+weight = 2
