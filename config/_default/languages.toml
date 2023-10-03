@@ -1,12 +1,19 @@
 # Rename this file to languages.toml to enable multilingual support
-[en]
-languageName = "English"
-languagedirection = "ltr"
-title = "Onid1's blog"
-weight = 1
-
 [fr]
 languageName = "French"
 languagedirecion = "ltr"
 title = "Le blog d'Onid1"
+contentDir = "content/fr"
+languageCode = "fr"
+disabled = false
+weight = 1
+
+[en]
+languageName = "English"
+languagedirection = "ltr"
+title = "Onid1's blog"
+contentDir = "content/en"
+languageCode = "en-us"
+disable = false
 weight = 2
+
