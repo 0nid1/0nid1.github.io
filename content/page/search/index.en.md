@@ -1,5 +1,5 @@
 ---
-title: "Rechercher"
+title: "Search"
 slug: "search"
 layout: "search"
 translationKey: search
