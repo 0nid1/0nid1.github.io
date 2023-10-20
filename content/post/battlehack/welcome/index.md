@@ -1,5 +1,5 @@
 ---
-title: "[Facile - Linux] Welcome"
+title: "Bruteforce SSH & Exploitation de Sudo find"
 description: Résolution de la machine Welcome
 slug: battlehack_welcome
 date: 2023-10-03 00:00:00+0000

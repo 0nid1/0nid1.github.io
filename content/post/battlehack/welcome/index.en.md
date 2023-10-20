@@ -1,5 +1,5 @@
 ---
-title: "[Easy - Linux] Welcome"
+title: "SSH Brutefore & Sudo Find Privilege Escalation"
 description: Welcome box solve
 slug: battlehack_welcome
 date: 2023-10-03 00:00:00+0000
