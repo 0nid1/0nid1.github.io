@@ -26,9 +26,7 @@ En lisant la description de la mission, nous apprenons que nous pouvons nous con
 
 ## Mode normal
 
-### Reconnaissance
-
-### Analyse de ports
+### Analyse des ports
 
 Tout d'abord, nous devons connaître quels services sont ouverts sur la machine.
 Pour cela, nous allons utiliser l'outil *nmap* :
